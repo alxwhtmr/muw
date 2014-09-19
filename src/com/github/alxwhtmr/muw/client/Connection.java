@@ -40,7 +40,7 @@ public class Connection  {
             initClientName();
             established = true;
             connectionLine = "Connected to " + host + " " + new Date();
-            client.setText(connectionLine);
+            client.appendText(connectionLine);
 
             Runnable r1 = new Runnable() {
                 public void run() {

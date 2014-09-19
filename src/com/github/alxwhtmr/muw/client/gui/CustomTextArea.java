@@ -17,7 +17,7 @@ public class CustomTextArea extends JTextArea implements ActionListener {
         this.setBackground(Color.BLACK);
         this.setForeground(Color.WHITE);
         this.setFont(new Font("Fixedsys",Font.PLAIN,14));
-        this.setText(Common.Constants.Hints.INIT_MSG);
+        this.setText(Common.Constants.Hints.NAME_HINT);
     }
 
     public void actionPerformed(ActionEvent evt) {

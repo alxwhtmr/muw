@@ -12,6 +12,7 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CoderResult;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -25,6 +26,7 @@ public class Server {
     private static int clientCount = 0;
     private static boolean acceptMore = true;
     private ArrayList<PrintWriter> out = new ArrayList<PrintWriter>();
+    private LinkedList<PrintWriter> out2 = new LinkedList<PrintWriter>();
 
     public Server(int portNumber) {
         ServerSocket serverSocket = null;
@@ -60,20 +62,21 @@ public class Server {
             InputStreamReader isr = new InputStreamReader(incomingClientSocket.getInputStream(), "Windows-1251");
             BufferedReader in = new BufferedReader(isr);
             OutputStream outStream = incomingClientSocket.getOutputStream();
-            out.add(new PrintWriter(outStream, true));
+            PrintWriter pw = new PrintWriter(outStream);
+            out.add(pw);
+            System.out.println("New Client index=" + out.indexOf(pw));
+//            out.add(new PrintWriter(outStream, true));
             int incomingClientIndex = clientCount++;
             incomingClientHost = in.readLine(); // BufferedReader
 
             System.out.println("Clients: " + out.size() + " " + clientCount);
             System.out.println("Incoming connection " + incomingClientHost + " on " + new Date());
 
-            for (int i = 0; i < clientCount; i++) {
-                out.get(i).println(incomingClientHost + " connected");
-            }
+            for (int i = 0; i < clientCount; i++) out.get(i).println(incomingClientHost + " connected\n");
 
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                System.out.println("Incoming message: \"" + inputLine + "\"");
+//                System.out.println("Incoming message: " + inputLine);
                 if (inputLine.equals(Common.Constants.Service.QUIT)) break;
                 for (int i = 0; i < clientCount; i++) {
                     out.get(i).println(inputLine);
@@ -93,6 +96,7 @@ public class Server {
         }
         clientCount--;
         out.remove(clientIndex);
+//        out2.remove(clientIndex);
     }
 
     public static void main(String[] args) throws IOException {

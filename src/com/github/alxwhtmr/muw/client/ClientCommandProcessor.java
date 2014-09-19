@@ -14,11 +14,13 @@ public class ClientCommandProcessor {
     private Client client;
     private Connection connection;
     private ClientCommandSender clientCommandSender;
+    private String defaultChannel = "";
 
     public ClientCommandProcessor(Client client) {
         this.client = client;
         connection = this.client.getConnection();
         clientCommandSender = this.client.getClientCommandSender();
+        defaultChannel = Common.convertTo1251(Common.Constants.Channels.GLOBAL);
     }
 
     public void processCommand(String cmd) {
@@ -26,6 +28,7 @@ public class ClientCommandProcessor {
             String serviceCmdDivided[] = splitCommand(cmd.substring(1));
             processServiceCommand(serviceCmdDivided);
         } else if (connection.isEstablished()) {
+            cmd = defaultChannel + cmd;
             String cmdDivided[] = splitCommand(cmd);
             System.out.println(cmdDivided[0]);
             if (cmdDivided[0].matches(Common.convertTo1251(Common.Patterns.Channels.GLOBAL))) {

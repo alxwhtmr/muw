@@ -8,7 +8,7 @@ import java.awt.*;
 public class Common {
     public class Constants {
         public class Hints {
-            public static final String NAME_HINT = "#name <name>\n";
+            public static final String NAME_HINT = "HINT: #name <name>\n";
             public static final String EG = "(e.g. #connect 192.168.30 8787)\n";
             public static final String CONNECT_HINT = "#connect <host> <port> " + EG;
             public static final String DISCONNECT_HINT = "#disconnect\n";
@@ -23,8 +23,13 @@ public class Common {
             public static final char SERVICE_SYMBOL = '#';
         }
 
+        public class Channels {
+            public static final String GLOBAL = "бол ";
+        }
+
         public class Misc {
-            public static final String HOST = "localhost";
+            public static final String HOST = "192.168.206.30";
+//            public static final String HOST = "95.79.27.15";
             public static final int PORT = 8787;
         }
     }

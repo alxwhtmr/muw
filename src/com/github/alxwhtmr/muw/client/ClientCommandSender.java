@@ -19,6 +19,6 @@ public class ClientCommandSender {
     }
 
     public void sendGlobalMsg(String msg) {
-        client.getConnection().out.println(client.getClientName() + ": \"" + msg + "\"");
+        client.getConnection().out.println(client.getClientName() + ": " + msg);
     }
 }
