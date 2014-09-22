@@ -3,6 +3,7 @@ package com.github.alxwhtmr.muw.client.gui;
 import com.github.alxwhtmr.muw.common.Common;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

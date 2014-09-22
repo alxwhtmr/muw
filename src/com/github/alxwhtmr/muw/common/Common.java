@@ -29,8 +29,7 @@ public class Common {
 
         public class Misc {
             public static final String HOST = "192.168.206.30";
-//            public static final String HOST = "95.79.27.15";
-            public static final int PORT = 8787;
+            public static final int PORT = 8585;
         }
     }
 
@@ -47,6 +46,12 @@ public class Common {
         }
         public class Symbols {
             public static final String WHITESPACE = " ";
+        }
+    }
+
+    public class Resources {
+        public class Sounds {
+            public static final String NOTIFICATION = "tune.wav";
         }
     }
 

@@ -3,6 +3,7 @@ package com.github.alxwhtmr.muw.client;
 import com.github.alxwhtmr.muw.client.gui.Client;
 import com.github.alxwhtmr.muw.common.Common;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;

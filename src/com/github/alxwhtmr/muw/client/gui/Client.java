@@ -15,11 +15,10 @@ import java.io.UnsupportedEncodingException;
  * Created by alexbel on 02.09.2014.
  */
 public class Client extends JPanel {
-    //    protected CustomTextField textField;
+    protected JFrame frame;
     protected JTextField textField;
-    protected JTextArea textArea;
-    private final static String nl = "\n";
-    public static int count = 0;
+    protected CustomTextArea1 textArea;
+//    protected JEditorPane textArea;
 
     private ClientCommandProcessor clientCommandProcessor;
     private ClientCommandSender clientCommandSender;
@@ -34,7 +33,10 @@ public class Client extends JPanel {
 
         clientCommandProcessor = new ClientCommandProcessor(this);
         textField = new CustomTextField(this, 20);
-        textArea = new CustomTextArea(20, 80);
+//        textArea = new CustomTextArea(20, 80);
+        textArea = new CustomTextArea1("text/html", "");
+        textArea.setText("TEXT");
+
         JScrollPane scrollPane = new JScrollPane(textArea);
 
         GridBagConstraints c = new GridBagConstraints();
@@ -49,6 +51,7 @@ public class Client extends JPanel {
         c.weightx = 0.0;
         c.weighty = 0.0;
         add(textField, c);
+//        setSize(20, 80);
     }
 
     public void setClientName(String clientName) {
@@ -71,8 +74,16 @@ public class Client extends JPanel {
         return clientCommandSender;
     }
 
+//    public void appendText(String text) {
+//        textArea.append('\n' + text);
+//        textArea.setCaretPosition(textArea.getDocument().getLength());
+//        frame.toFront();
+//    }
+
     public void appendText(String text) {
-        textArea.append('\n' + text);
+        textArea.setText(textArea.getText() + '\n' + text);
+        textArea.setCaretPosition(textArea.getDocument().getLength());
+        frame.toFront();
     }
 
     public void setText(String text) {
@@ -83,9 +94,13 @@ public class Client extends JPanel {
         textArea.setText(connection.getConnectionLine());
     }
 
+//    public JTextArea getTextArea() {
+//        return textArea;
+//    }
+
     private void createAndShowGUI() {
 //        System.out.println(Common.getMethodName(2));
-        JFrame frame = new JFrame("Client");
+        frame = new JFrame("Client");
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
@@ -108,6 +123,7 @@ public class Client extends JPanel {
         });
 
         frame.pack();
+        frame.setSize(300, 300);
         frame.setVisible(true);
     }
 

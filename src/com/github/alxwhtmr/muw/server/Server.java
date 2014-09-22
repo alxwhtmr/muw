@@ -25,12 +25,14 @@ public class Server {
     private final static int MAX_CONNECTIONS = 10;
     private static int clientCount = 0;
     private static boolean acceptMore = true;
+    private ServerCommandProcessor serverCommandProcessor;
     private ArrayList<PrintWriter> out = new ArrayList<PrintWriter>();
     private LinkedList<PrintWriter> out2 = new LinkedList<PrintWriter>();
 
     public Server(int portNumber) {
         ServerSocket serverSocket = null;
         ExecutorService executorService = Executors.newFixedThreadPool(MAX_CONNECTIONS);
+        serverCommandProcessor = new ServerCommandProcessor();
 
         try {
             serverSocket = new ServerSocket(portNumber);
@@ -62,7 +64,7 @@ public class Server {
             InputStreamReader isr = new InputStreamReader(incomingClientSocket.getInputStream(), "Windows-1251");
             BufferedReader in = new BufferedReader(isr);
             OutputStream outStream = incomingClientSocket.getOutputStream();
-            PrintWriter pw = new PrintWriter(outStream);
+            PrintWriter pw = new PrintWriter(outStream, true); // ALWAYS SET TRUE!!
             out.add(pw);
             System.out.println("New Client index=" + out.indexOf(pw));
 //            out.add(new PrintWriter(outStream, true));
@@ -76,10 +78,11 @@ public class Server {
 
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-//                System.out.println("Incoming message: " + inputLine);
+                System.out.println("Incoming message: " + inputLine);
                 if (inputLine.equals(Common.Constants.Service.QUIT)) break;
                 for (int i = 0; i < clientCount; i++) {
-                    out.get(i).println(inputLine);
+                    String outputLine = serverCommandProcessor.processCommand(inputLine);
+                    out.get(i).println(outputLine);
                 }
             }
             closeConnection(incomingClientHost, incomingClientSocket, incomingClientIndex);
